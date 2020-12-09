@@ -43,7 +43,6 @@ def recognise_command():
     try:
         with sr.Microphone() as source:
             print('Listening.....')
-            print(listener.energy_threshold)
             voice = listener.listen(source, timeout=5)
             command = listener.recognize_google(voice)
             command = command.lower()
@@ -52,7 +51,7 @@ def recognise_command():
                     str(virtual_assistant_name).lower(), '')
                 talk(command, False)
     except:
-        talk("Please tell again, I cannot hear you.")
+        pass
 
     return command
 
