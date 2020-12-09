@@ -1,4 +1,5 @@
 <h2>💠 Your Own Virtual Assistance (Alexa) 💠</h2>
+<h4>If you like 💚💚💚 , please give a star ✯✯✯ in this repository</h4>
 <h3>✅ Setup Instructions : </h3>
 <ul>
 <li><a href="https://www.python.org/downloads/" target="_blank">Python</a> / <a href="https://www.anaconda.com/products/individual" target="_blank">Anaconda</a> must be installed</li>
