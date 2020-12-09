@@ -8,7 +8,6 @@ import pyjokes
 #############################################################
 # Customise the name of your virtual assistant as your wish #
 # The name must be in lower case                            #
-
 #############################################################
 
 virtual_assistant_name = 'alexa'
