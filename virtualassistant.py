@@ -4,6 +4,7 @@ import pywhatkit
 import datetime
 import wikipedia
 import pyjokes
+import webbrowser
 
 #############################################################
 # Customise the name of your virtual assistant as your wish #
@@ -16,6 +17,15 @@ listener = sr.Recognizer()
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[1].id)
+website_list = {
+    "facebook": "https://facebook.com/",
+    "google": "https://google.com/",
+    "instagram": "https://www.instagram.com/",
+    "telegram": "https://web.telegram.org/",
+    "spotify": "https://open.spotify.com/",
+    "youtube": "https://youtube.com/",
+    "whatsapp": "https://web.whatsapp.com/",
+}
 
 
 def talk(text, is_assistant=True):
@@ -45,6 +55,15 @@ def recognise_command():
     return command
 
 
+def website_name_check_in_command(command):
+    for i in str(command).split():
+        for j in website_list.keys():
+            if i == j:
+                return website_list[j]
+                break
+    return None
+
+
 talk("I am listening to you")
 talk("What can i do for you")
 while True:
@@ -54,7 +73,7 @@ while True:
             topic = command.replace('play', '')
             talk('Playing')
             pywhatkit.playonyt(topic)
-        if 'search' in command:
+        elif 'search' in command:
             command = command.replace('search', '')
             if 'in' in command:
                 command = command.replace('in', '')
@@ -71,6 +90,14 @@ while True:
                     command = command.replace('google', '')
                 talk('Opening browser and searching')
                 pywhatkit.search(command)
+        elif 'open' in command:
+            command = command.replace('open', '')
+            website = website_name_check_in_command(command)
+            if website is not None:
+                talk('Opening....')
+                webbrowser.open(website, new=0)
+            else:
+                talk('I do not know this website')
         elif 'time' in command:
             time = datetime.datetime.now().strftime('%I:%M %p')
             talk('Current time is ' + time)
@@ -81,7 +108,8 @@ while True:
         elif 'joke' in command:
             talk(pyjokes.get_joke())
         elif 'your name' in command:
-            talk(f"My name is {virtual_assistant_name.title()}. I am  your virtual assistant. Nice to meet you.")
+            talk(
+                f"My name is {virtual_assistant_name.title()}. I am  your virtual assistant. Nice to meet you.")
         elif 'stop' in command:
             break
         else:
