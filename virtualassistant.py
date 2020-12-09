@@ -15,8 +15,9 @@ virtual_assistant_name = 'alexa'
 
 listener = sr.Recognizer()
 engine = pyttsx3.init()
+listener.dynamic_energy_threshold = False
 voices = engine.getProperty('voices')
-engine.setProperty('voice', voices[1].id)
+engine.setProperty('voice', voices[0].id)
 website_list = {
     "facebook": "https://facebook.com/",
     "google": "https://google.com/",
@@ -42,7 +43,8 @@ def recognise_command():
     try:
         with sr.Microphone() as source:
             print('Listening.....')
-            voice = listener.listen(source)
+            print(listener.energy_threshold)
+            voice = listener.listen(source, timeout=5)
             command = listener.recognize_google(voice)
             command = command.lower()
             if virtual_assistant_name.lower() in command:
@@ -113,4 +115,5 @@ while True:
         elif 'stop' in command:
             break
         else:
-            talk("Sorry, I have no answer for your question.")
+            talk("Sorry, I have no answer for your question.I am searching in google")
+            pywhatkit.search(command)
