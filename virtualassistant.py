@@ -45,7 +45,6 @@ def recognise_command():
     return command
 
 
-
 talk("I am listening to you")
 talk("What can i do for you")
 while True:
@@ -55,6 +54,23 @@ while True:
             topic = command.replace('play', '')
             talk('Playing')
             pywhatkit.playonyt(topic)
+        if 'search' in command:
+            command = command.replace('search', '')
+            if 'in' in command:
+                command = command.replace('in', '')
+            if 'youtube' in command:
+                commmand = command.replace('youtube', '')
+                talk('Opening the video/music in youtube')
+                pywhatkit.playonyt(command)
+            elif 'wikipedia' in command:
+                talk('Searching')
+                command = command.replace('wikipedia', '')
+                talk(wikipedia.summary(command, 1))
+            else:
+                if 'google' in command:
+                    command = command.replace('google', '')
+                talk('Opening browser and searching')
+                pywhatkit.search(command)
         elif 'time' in command:
             time = datetime.datetime.now().strftime('%I:%M %p')
             talk('Current time is ' + time)
